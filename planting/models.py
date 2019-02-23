@@ -20,3 +20,12 @@ class Layer(models.Model):
 
     def __str__(self):
         return self.value
+
+#Plant Human Uses
+class PlantHumanUses (models.Model):
+        plant_id = models.ForeignKey('Plant', on_delete=models.CASCADE, blank=True, null=True)
+        human_use_property_id = models.ForeignKey('HumanUseProperty', on_delete=models.CASCADE, blank=True, null=True)
+
+         class Meta:
+		managed = True
+		db_table = 'plantHumanUses'               
