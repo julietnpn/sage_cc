@@ -44,7 +44,7 @@ class PlantEcosystemRelationship(models.Model):
 		managed = True
 		db_table = 'plantEcosystemRelationship'
 
-
+#---HumanUseProperty Model-----#
 class HumanUseProperty(models.Model):
     property = models.CharField(max_length=300, blank=True, null=True)
 
