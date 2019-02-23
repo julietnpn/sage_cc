@@ -11,6 +11,7 @@ class Plant(models.Model):
 		managed = True
 		db_table = 'plant'
 
+
 #---Layer Model-----#
 class Layer(models.Model):
     value = models.CharField(max_length=300, blank=True, null=True)
@@ -23,7 +24,7 @@ class Layer(models.Model):
         return self.value
 
 
-#---Plant Human Uses Model---#
+#---Plant Human Uses-----#
 class PlantHumanUses (models.Model):
         plant_id = models.ForeignKey('Plant', on_delete=models.CASCADE, blank=True, null=True)
         human_use_property_id = models.ForeignKey('HumanUseProperty', on_delete=models.CASCADE, blank=True, null=True)
@@ -31,7 +32,6 @@ class PlantHumanUses (models.Model):
          class Meta:
 		managed = True
 		db_table = 'plantHumanUses'               
-
 
 
 #---PlantEcosystemRelationship Model-----#
@@ -45,6 +45,7 @@ class PlantEcosystemRelationship(models.Model):
 		db_table = 'plantEcosystemRelationship'
 
 
+#---HumanUseProperty Model-----#
 class HumanUseProperty(models.Model):
     property = models.CharField(max_length=300, blank=True, null=True)
 
@@ -52,7 +53,8 @@ class HumanUseProperty(models.Model):
         managed = True
         db_table = 'humanUseProperty'
 
-#-----EcosystemRelationshipProperty (ERP) -----#
+
+#---EcosystemRelationshipProperty (ERP)-----#
 class EcosystemRelationshipProperty(models.Model):
 	plantProperty = models.CharField(max_length = 300)
 
