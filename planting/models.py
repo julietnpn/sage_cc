@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-#---Plant Model-----#
+#-----Plant Model-----#
 class Plant(models.Model):
 	name = models.CharField(max_length=300, blank=True, null=True)
 	layer = models.ForeignKey('Layer', on_delete=models.CASCADE, blank=True, null=True)
@@ -12,7 +12,7 @@ class Plant(models.Model):
 		db_table = 'plant'
 
 
-#---Layer Model-----#
+#-----Layer Model-----#
 class Layer(models.Model):
     value = models.CharField(max_length=300, blank=True, null=True)
 
@@ -24,7 +24,7 @@ class Layer(models.Model):
         return self.value
 
 
-#---Plant Human Uses-----#
+#-----Plant Human Uses---#
 class PlantHumanUses (models.Model):
         plant_id = models.ForeignKey('Plant', on_delete=models.CASCADE, blank=True, null=True)
         human_use_property_id = models.ForeignKey('HumanUseProperty', on_delete=models.CASCADE, blank=True, null=True)
@@ -34,7 +34,7 @@ class PlantHumanUses (models.Model):
 		db_table = 'plantHumanUses'               
 
 
-#---PlantEcosystemRelationship Model-----#
+#-----PlantEcosystemRelationship Model-----#
 class PlantEcosystemRelationship(models.Model):
 	plant_id = models.ForeignKey('Plant', on_delete=models.CASCADE, blank=True, null=True)
 	ecosystemRelationshipProperty = models.ForeignKey('EcosystemRelationshipProperty', on_delete=models.CASCADE, blank=True, null=True)
@@ -45,7 +45,7 @@ class PlantEcosystemRelationship(models.Model):
 		db_table = 'plantEcosystemRelationship'
 
 
-#---HumanUseProperty Model-----#
+#-----HumanUseProperty Model-----#
 class HumanUseProperty(models.Model):
     property = models.CharField(max_length=300, blank=True, null=True)
 
@@ -54,7 +54,7 @@ class HumanUseProperty(models.Model):
         db_table = 'humanUseProperty'
 
 
-#---EcosystemRelationshipProperty (ERP)-----#
+#-----EcosystemRelationshipProperty (ERP)-----#
 class EcosystemRelationshipProperty(models.Model):
 	plantProperty = models.CharField(max_length = 300)
 
@@ -64,3 +64,12 @@ class EcosystemRelationshipProperty(models.Model):
 
 	def __str__(self):
 	    return self.value
+
+
+#-----EcosystemRelationshipValue (ERV)-----#
+class EcosystemRelationshipValue(models.Model):
+    value = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        managed = True
+        db_table = "EcosystemRelationshipValue"
