@@ -53,13 +53,12 @@ class HumanUseProperty(models.Model):
         db_table = 'humanUseProperty'
 
 #-----EcosystemRelationshipProperty (ERP) -----#
-
-class ERP(models.Model):
+class EcosystemRelationshipProperty(models.Model):
 	plantProperty = models.CharField(max_length = 300)
 
 	class Meta: 
 		managed = True
-		db_table = 'ERP'
+		db_table = 'EcosystemRelationshipProperty'
 
 	def __str__(self):
 	    return self.value
