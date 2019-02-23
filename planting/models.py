@@ -6,6 +6,7 @@ from django.db import models
 class Plant(models.Model):
 	name = models.CharField(max_length=300, blank=True, null=True)
 	layer = models.ForeignKey('Layer', on_delete=models.CASCADE, blank=True, null=True)
+	plantImage = CharField(max_length=500, blank=True, null=True)
 
 	class Meta:
 		managed = True
