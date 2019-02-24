@@ -12,10 +12,10 @@ https://docs.djangoproject.com/en/2.2/ref/templates/builtins/
         <h2>{{ plant.name }}<h2>
     </div>
     <div class="plantImg">
-        <!-- insert plant image -->
+        <img src = "{{plant.imgURL}}" width="300px" height="300px"> </img>
     </div>
     <div class="plantLayer">
-        <!-- insert plant layer -->
+        <h3> {{plant.layer}} </h3>
     </div>
     <div class="plantEcosystemRelationships">
         <!-- insert plant ecosystem relationships (needs to be a for loop) -->
@@ -30,10 +30,10 @@ https://docs.djangoproject.com/en/2.2/ref/templates/builtins/
         <h2>{{ plant.name }}<h2>
     </div>
      <div class="plantImg">
-        <!-- insert plant image -->
+        <img src = "{{plant.imgURL}}" width="300px" height="300px" > </img>
     </div>
     <div class="plantLayer">
-        <!-- insert plant layer -->
+        <h3> {{plant.layer}} </h3>
     </div>
     <div class="plantEcosystemRelationships">
         <!-- insert plant ecosystem relationships (needs to be a for loop) -->
@@ -41,7 +41,7 @@ https://docs.djangoproject.com/en/2.2/ref/templates/builtins/
 </div>
 {% endfor %}
 
-
 <a href="{% url 'suggestions' %}">Get Suggestions</a>
+
 </body>
 </html>
