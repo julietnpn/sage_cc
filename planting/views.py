@@ -4,12 +4,16 @@ from planting.models import *
 
 
 def index(request):
-
-
+    context = get_Alex_suggestions()
     return render(request, 'planting/index.html', context)
 
 
 def suggestions(request):
+    context = get_Alex_suggestions()
+    return render(request, 'planting/index.html', context)
+
+
+def get_Alex_suggestions():
     alex_plants = get_Alex_plants()
     blake_plants = get_Blake_plants()
 
@@ -84,8 +88,9 @@ def suggestions(request):
 #             'suggestion_plant_name':
 #             'suggestion_plant_provides':
 #     }
-#    return render(request, 'planting/index.html', context)
-    return render(request, 'planting/index.html')
+
+    return context
+    #return render(request, 'planting/index.html')
 
 
 def get_Alex_plants():
