@@ -15,8 +15,8 @@ class User(models.Model):
 
 #-----Yards Model-----#
 class Yards(models.Model):
-	plant_id = models.ForeignKey('Plant', on_delete=models.CASCADE, blank=True, null=True)
-	user_id = models.ForeignKey('User', on_delete=models.CASCADE, blank=True, null=True)
+	plant = models.ForeignKey('Plant', on_delete=models.CASCADE, blank=True, null=True)
+	user = models.ForeignKey('User', on_delete=models.CASCADE, blank=True, null=True)
 	
 	class Meta:
 		managed = True
@@ -75,7 +75,7 @@ class HumanUseProperty(models.Model):
 
 #-----PlantEcosystemRelationship Model-----#
 class PlantEcosystemRelationship(models.Model):
-	plant_id = models.ForeignKey('Plant', on_delete=models.CASCADE, blank=True, null=True)
+	plant = models.ForeignKey('Plant', on_delete=models.CASCADE, blank=True, null=True)
 	ecosystemRelationshipProperty = models.ForeignKey('EcosystemRelationshipProperty', on_delete=models.CASCADE, blank=True, null=True)
 	ecosystemRelationshipValue = models.ForeignKey('EcosystemRelationshipValue', on_delete=models.CASCADE, blank=True, null=True)
 
@@ -87,7 +87,7 @@ class PlantEcosystemRelationship(models.Model):
 
 #-----Plant Human Use---#
 class PlantHumanUse (models.Model):
-	plant_id = models.ForeignKey('Plant', on_delete=models.CASCADE, blank=True, null=True)
+	plant = models.ForeignKey('Plant', on_delete=models.CASCADE, blank=True, null=True)
 	human_use_property_id = models.ForeignKey('HumanUseProperty', on_delete=models.CASCADE, blank=True, null=True)
 
 	class Meta:
