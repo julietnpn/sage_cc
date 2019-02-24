@@ -2,6 +2,45 @@
 <head>
 </head>
 <body>
+<!-- For reference on how to use django template code go here: 
+https://docs.djangoproject.com/en/2.2/ref/templates/builtins/
+-->
+<h1>Alex's Plants (you)</h1>
+{% for plant in alexPlants %}
+<div class="plantContainer">
+    <div class="plantName">
+        <h2>{{ plant.name }}<h2>
+    </div>
+    <div class="plantImg">
+        <!-- insert plant image -->
+    </div>
+    <div class="plantLayer">
+        <!-- insert plant layer -->
+    </div>
+    <div class="plantEcosystemRelationships">
+        <!-- insert plant ecosystem relationships (needs to be a for loop) -->
+    </div>
+</div>
+{% endfor %}
+
+<h1>Blake's Plants (neighbor)</h1>
+{% for plant in blakePlants %}
+<div class="plantContainer">
+    <div class="plantName">
+        <h2>{{ plant.name }}<h2>
+    </div>
+     <div class="plantImg">
+        <!-- insert plant image -->
+    </div>
+    <div class="plantLayer">
+        <!-- insert plant layer -->
+    </div>
+    <div class="plantEcosystemRelationships">
+        <!-- insert plant ecosystem relationships (needs to be a for loop) -->
+    </div>
+</div>
+{% endfor %}
+
 
 <a href="{% url 'suggestions' %}">Get Suggestions</a>
 </body>
