@@ -5,43 +5,86 @@
 <!-- For reference on how to use django template code go here: 
 https://docs.djangoproject.com/en/2.2/ref/templates/builtins/
 -->
-<h1>Alex's Plants (you)</h1>
-{% for plant in alexPlants %}
-<div class="plantContainer">
-    <div class="plantName">
-        <h2>{{ plant.name }}<h2>
-    </div>
-    <div class="plantImg">
-        <img src = "{{plant.imgURL}}" width="300px" height="300px"> </img>
-    </div>
-    <div class="plantLayer">
-        <h3> Layer: {{plant.layer}} </h3>
-    </div>
-    <div class="plantEcosystemRelationships">
-        <!-- insert plant ecosystem relationships (needs to be a for loop) -->
-    </div>
-</div>
-{% endfor %}
+<table style="width:100%">
+    <tr>
+        <th>
+            <h1>Alex's Plants (you)</h1>
+        </th>
+        <th>
+            <h1>Blake's Plants (neighbor)</h1>
+        </th>
+    </tr>
+    <tr>
+        <th>
+            {% for plant in alexPlants %}
 
-<h1>Blake's Plants (neighbor)</h1>
-{% for plant in blakePlants %}
-<div class="plantContainer">
-    <div class="plantName">
-        <h2>{{ plant.name }}<h2>
-    </div>
-     <div class="plantImg">
-        <img src = "{{plant.imgURL}}" width="300px" height="300px" > </img>
-    </div>
-    <div class="plantLayer">
-        <h3> Layer: {{plant.layer}} </h3>
-    </div>
-    <div class="plantEcosystemRelationships">
-        <!-- insert plant ecosystem relationships (needs to be a for loop) -->
-    </div>
-</div>
-{% endfor %}
+            <div class="plantContainer">
+                <div class="plantName">
+                    <h2>{{ plant.name }}<h2>
+                </div>
+                <div class="plantImg">
+                    <img src = "{{plant.imgURL}}" width="300px" height="300px"> </img>
+                </div>
+                <div class="plantLayer">
+                    <h3> Layer: {{plant.layer}} </h3>
+                </div>
+                <div class="plantEcosystemRelationships">
+                    <!-- insert plant ecosystem relationships (needs to be a for loop) -->
+                </div>
+            </div>
+            {% endfor %}
+        </th>
+        <th>
+            {% for plant in blakePlants %}
+            <div class="plantContainer">
+                <div class="plantName">
+                    <h2>{{ plant.name }}<h2>
+                </div>
+                 <div class="plantImg">
+                    <img src = "{{plant.imgURL}}" width="300px" height="300px" > </img>
+                </div>
+                <div class="plantLayer">
+                    <h3> Layer: {{plant.layer}} </h3>
+                </div>
+                <div class="plantEcosystemRelationships">
+                    <!-- insert plant ecosystem relationships (needs to be a for loop) -->
+                </div>
+            </div>
+            {% endfor %}
+        </th>
+    </tr>
+</table>
 
-<a href="{% url 'suggestions' %}">Get Suggestions</a>
+<table style="width:100%">
+<tr>
+<th>
+{% if not alexSuggestions %}
+<a href="{% url 'suggestions' %}">Get suggestions to help your neighbor, Blake!</a>
+{% elif alexSuggestions %}
+    <h1> Suggestions for Alex that help neighbor Blake </h1>
+    {% for plant in alexSuggestions %}
+        <div class="plantContainer">
+            <div class="plantName">
+                <h2>{{ plant.name }}<h2>
+            </div>
+            <div class="plantImg">
+                <img src = "{{plant.imgURL}}" width="300px" height="300px"> </img>
+            </div>
+            <div class="plantLayer">
+                <h3> Layer: {{plant.layer}} </h3>
+            </div>
+            <div class="plantEcosystemRelationships">
+                <!-- insert plant ecosystem relationships (needs to be a for loop) -->
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+</th>
+</tr>
+</table>
+
+
+
 
 </body>
 </html>

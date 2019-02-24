@@ -4,7 +4,15 @@ from planting.models import *
 
 
 def index(request):
-    context = get_Alex_suggestions()
+    
+    alex_plants = get_Alex_plants()
+    blake_plants = get_Blake_plants()
+    
+    context = {
+        'alexPlants': alex_plants,
+        'blakePlants': blake_plants,
+        'alexSuggestions': None,
+    }
     return render(request, 'planting/index.html', context)
 
 
@@ -14,14 +22,12 @@ def suggestions(request):
 
 
 def get_Alex_suggestions():
-    alex_plants = get_Alex_plants()
-    blake_plants = get_Blake_plants()
+    alex_plants = get_Blake_plants()
+    blake_plants = get_Alex_plants()
 
     deterants = []
     providers = []
     needs = []
-
-    
 
     
     #get list of all plantecosystem relationships that are deter and provide (value)
@@ -30,35 +36,45 @@ def get_Alex_suggestions():
     all_plants = Plant.objects.all()
 
     for plant in all_plants:
-        deterants.append(PlantEcosystemRelationship.objects.filter( ecosystemRelationshipValue_id = 1))
-        providers.append(PlantEcosystemRelationship.objects.filter( ecosystemRelationshipValue_id = 4))
-
+        for d in PlantEcosystemRelationship.objects.filter( ecosystemRelationshipValue_id = 1):
+            deterants.append(d)
+        for p in PlantEcosystemRelationship.objects.filter( ecosystemRelationshipValue_id = 4):
+            providers.append(p)
 
     blake_plant_needs = []
     blake_plant_susceptible = []
 
     for plant in blake_plants:
-        blake_plant_needs.append(PlantEcosystemRelationship.objects.filter( ecosystemRelationshipValue_id = 3))
-        blake_plant_susceptible.append(PlantEcosystemRelationship.objects.filter( ecosystemRelationshipValue_id = 2))
-
+        for p in PlantEcosystemRelationship.objects.filter( plant = plant.id, ecosystemRelationshipValue_id = 3):
+            blake_plant_needs.append(p)
+        for s in PlantEcosystemRelationship.objects.filter( plant = plant.id, ecosystemRelationshipValue_id = 2):
+            blake_plant_susceptible.append(s)
 
     alex_suggestions = []
 
-    for plant in blake_plant_needs:
-        for p in providers:
-            if plant.ecosystemRelationshipProperty_id == p.ecosystemRelationshipProperty_id:
-                alex_suggestions.append(plant)
+    for need in blake_plant_needs:
+        print ("need plant: " + need.plant.name)
+        print ("property: " + need.ecosystemRelationshipProperty.attribute )
+        print ("------------------------")
+        for provide in providers:
+            print ("provide plant: " + provide.plant.name)
+            print ("property: " + provide.ecosystemRelationshipProperty.attribute )
+            if need.ecosystemRelationshipProperty.attribute ==  provide.ecosystemRelationshipProperty.attribute:
+                print("*************** MATCH #*******")
+                alex_suggestions.append(provide.plant)
 
-    for plant in blake_plant_susceptible:
-        for d in deterants:
-            if plant.ecosystemRelationshipProperty_id == p.ecosystemRelationshipProperty_id:
-                alex_suggestions.append(plant)
 
-
-
-        
-
-        
+    for susceptible in blake_plant_susceptible:
+        print ("susceptible plant: " + susceptible.plant.name)
+        print ("property: " + susceptible.ecosystemRelationshipProperty.attribute )
+        print ("------------------------")
+        for deter in deterants:
+            print ("deter plant: " + deter.plant.name)
+            print ("property: " + deter.ecosystemRelationshipProperty.attribute )
+            if susceptible.ecosystemRelationshipProperty.attribute ==  deter.ecosystemRelationshipProperty.attribute:
+                print("*************** MATCH #*******")
+                alex_suggestions.append(deter.plant)
+                break
 
     #for each of blake plants
         #get list of plantecosystemrelationships that are needs
@@ -69,15 +85,12 @@ def get_Alex_suggestions():
             #for each n in list of blake-susceptible-plantecosystemrelationship
                 #filter plantecosystems for deters of n platecosystemrelationships property
                     #add plant and relationship to context
-                
 
 
-        context = {
+    context = {
         'alexPlants': alex_plants,
         'blakePlants': blake_plants,
-        'alex_suggestions': alex_suggestions
-        #'alexPlantUrls': alex_plant_urls,
-        #'blakePlantUrls': blake_plant_urls
+        'alexSuggestions': alex_suggestions,
     }
     #Blake's <plant.name> <needs/is susceptible to> <shared property>. You can plant <suggestionplant.name> because it <provides/deters> <shared property> 
 #     context = {
@@ -90,7 +103,6 @@ def get_Alex_suggestions():
 #     }
 
     return context
-    #return render(request, 'planting/index.html')
 
 
 def get_Alex_plants():
@@ -98,20 +110,10 @@ def get_Alex_plants():
     alex_yard = Yards.objects.filter(user_id = alex.id)
 
     alex_plants = []
-    #alex_plant_urls = []
 
     for y in alex_yard:
         alex_plants.append(Plant.objects.get(id = y.plant.id))
-
-    #for x in alex_plants:
-        #alex_plant_urls.append(x.imgURL)
-        
-    #blake_plant_urls = []
-
-    
-
-    #for x in blake_plants:
-        #blake_plant_urls.append(x.imgURL)
+    return alex_plants
 
 
 def get_Blake_plants():
