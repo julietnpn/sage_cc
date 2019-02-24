@@ -60,4 +60,5 @@ def suggestions(request):
 #             'suggestion_plant_name':
 #             'suggestion_plant_provides':
 #     }
-    return render(request, 'planting/index.html', context)
+#    return render(request, 'planting/index.html', context)
+    return render(request, 'planting/index.html')
